@@ -4,3 +4,9 @@ C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\De
 C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\Debug\Project1.pdb
 C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\obj\Debug\Project1.exe
 C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\obj\Debug\Project1.pdb
+C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\Debug\mscorlib.dll
+C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\Debug\normidna.nlp
+C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\Debug\normnfc.nlp
+C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\Debug\normnfd.nlp
+C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\Debug\normnfkc.nlp
+C:\Users\RAHAMATH\Documents\Visual Studio 2012\Projects\Project1\Project1\bin\Debug\normnfkd.nlp

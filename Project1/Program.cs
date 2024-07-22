@@ -10,13 +10,8 @@ namespace Project1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter your Account Number:");
-            double acno = double.Parse(Console.ReadLine());
-            Console.WriteLine("Enter your Pin Number:");
-            int pin = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter your Account Balance:");
-            int balance = int.Parse(Console.ReadLine());
-            AutomatedMachine auto = new AutomatedMachine(acno, pin,balance);
+           
+            AutomatedMachine auto = new AutomatedMachine();
             auto.Language();
         }
     }

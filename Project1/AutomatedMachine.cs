@@ -5,20 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Project1
-{
+{     
+   
     public class AutomatedMachine
     {
-        double AccountNo;
-        int PinNo;
-
-        double Balance;
+        AccountDetails account;
+        AtmLogic atm = new AtmLogic();
        
-
-        public AutomatedMachine(double AccountNo, int PinNo,double Balance)
+        private List<string> TranHis;
+       
+    
+        public AutomatedMachine()
         {
-            this.AccountNo = AccountNo;
-            this.PinNo = PinNo;
-            this.Balance = Balance;
+        
+            TranHis = new List<string>();
         }
 
        public static int GetInteger(string message)
@@ -29,7 +29,10 @@ namespace Project1
         }
 
         public void Language()
-        {
+       {
+           int Password;
+           Console.WriteLine("Enter Your Account Number:");
+           string AccountNumber = (Console.ReadLine());
             Console.WriteLine("LANGUAGE");
             Console.WriteLine("------------------");
             Console.WriteLine("1.English");
@@ -48,7 +51,25 @@ namespace Project1
                         int demo1 = int.Parse(Console.ReadLine());
                         if (demo1 == 1)
                         {
-                            Password();
+                          //  Password();
+                             Password = GetInteger("Enter your pin number:");
+                            account = atm.GetAccountByNumber(AccountNumber);
+                            if(account!= null)
+                            {
+                                if(account.Password==Password)
+                                {
+                                    PassWord();
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Sorry Incorrect Password");
+                                }
+                            }
+                            else
+                            {
+                            Console.WriteLine("Account not found");
+                            }
+                            
                         }
                         else
                         {
@@ -64,63 +85,54 @@ namespace Project1
         }
 
 
-        private void Password()
+        private void PassWord()
         {
-            int Password = GetInteger("Enter your pin number:");
-            if (PinNo == Password)
+
+            Console.WriteLine("1.Change your ATM pin");
+            Console.WriteLine("2.Fast Withdraw");
+            Console.WriteLine("3.Cash Withdraw");
+            Console.WriteLine("4.Check your balance");
+            Console.WriteLine("5.Mini Statement");
+            int operation = GetInteger("Enter the number to perform such operation:");
+            switch (operation)
             {
-                Console.WriteLine("1.Change your ATM pin");
-                Console.WriteLine("2.Fast Withdraw");
-                Console.WriteLine("3.Cash Withdraw");
-                Console.WriteLine("4.Check your balance");
-                Console.WriteLine("5.Mini Statement");
-                int operation = GetInteger("Enter the number to perform such operation:");
-                    switch(operation)
+                case 1:
                     {
-                        case 1:
-                            {
-                                ChangePassword();
-                                break;
-                            }
-                        case 2:
-                            {
-                                FastWithdraw();
-                                break;
-                            }
-                        case 3:
-                            {
-                                CashWithdraw();
-                                break;
-                            }
-                        case 4:
-                            {
-                                GetBalance();
-                                break;
-                            }
-                        case 5:
-                            {
-                                break;
-                            }
+                        ChangePassword();
+                        break;
                     }
-
-                    
-
-            }
-            else
-            {
-                Console.WriteLine("Incorrect pin Number");
-                
+                case 2:
+                    {
+                        FastWithdraw();
+                        break;
+                    }
+                case 3:
+                    {
+                        CashWithdraw();
+                        break;
+                    }
+                case 4:
+                    {
+                        GetBalance();
+                        break;
+                    }
+                case 5:
+                    {
+                        GetTransactionHistory();
+                        break;
+                    }
             }
         }
 
         private void ChangePassword()
         {
-            int OldPin = GetInteger("Enter your old pin:");
+            //int OldPin = GetInteger("Enter your old pin:");
             int NewPin = GetInteger("Enter your new pin:");
             int ConfrimPin = GetInteger("Confrim your new pin:");
             if (NewPin == ConfrimPin)
             {
-                PinNo = ConfrimPin;
+               account.ChangePassword( ConfrimPin);
+               Console.WriteLine("Password is Changed Successfully");
             }
             else
             {
@@ -145,12 +157,12 @@ namespace Project1
                 {
                     case 1:
                         {
-                            if (Balance > 500)
+                            if (account.Balance > 500)
                             {
-                                Balance = Balance - 500;
+                                account.Balance -= 500;
                                 Console.WriteLine("Please wait while we process your request");
                                 Console.WriteLine("Please remove your card and get the cash");
-
+                                TranHis.Add(DateTime.Now + " Withdraw: " + 500);
                                 Console.WriteLine("you want receipt fo your transaction");
                                 Console.WriteLine("1.Yes");
                                 Console.WriteLine("2.No");
@@ -158,7 +170,7 @@ namespace Project1
                                 if (Choice == 1)
                                 {
                                     Console.WriteLine("Please collect your receipt");
-                                    Console.WriteLine("Your balance is:"+Balance);
+                                    Console.WriteLine("Your balance is:"+account.Balance);
                                     Console.WriteLine("Thank You");
                                 }
                                 else
@@ -175,12 +187,12 @@ namespace Project1
                         }
                     case 2:
                         {
-                            if (Balance > 2000)
+                            if (account.Balance > 2000)
                             {
-                                Balance = Balance - 2000;
+                                account.Balance -= 2000;
                                 Console.WriteLine("Please wait while we process your request");
                                 Console.WriteLine("Please remove your card and get the cash");
-
+                                TranHis.Add(DateTime.Now + " Withdraw: " + 2000);
                                 Console.WriteLine("you want receipt fo your transaction");
                                 Console.WriteLine("1.Yes");
                                 Console.WriteLine("2.No");
@@ -188,7 +200,7 @@ namespace Project1
                                 if (Choice == 1)
                                 {
                                     Console.WriteLine("Please collect your receipt");
-                                    Console.WriteLine("Your balance is:" + Balance);
+                                    Console.WriteLine("Your balance is:" + account.Balance);
                                     Console.WriteLine("Thank You");
                                 }
                                 else
@@ -205,12 +217,12 @@ namespace Project1
                         }
                     case 3:
                         {
-                            if (Balance > 5000)
+                            if (account.Balance > 5000)
                             {
-                                Balance = Balance - 5000;
+                                account.Balance -= 5000;
                                 Console.WriteLine("Please wait while we process your request");
                                 Console.WriteLine("Please remove your card and get the cash");
-
+                                TranHis.Add(DateTime.Now + " Withdraw: " + 5000);
                                 Console.WriteLine("you want receipt fo your transaction");
                                 Console.WriteLine("1.Yes");
                                 Console.WriteLine("2.No");
@@ -218,7 +230,7 @@ namespace Project1
                                 if (Choice == 1)
                                 {
                                     Console.WriteLine("Please collect your receipt");
-                                    Console.WriteLine("Your balance is:" + Balance);
+                                    Console.WriteLine("Your balance is:" + account.Balance);
                                     Console.WriteLine("Thank You");
                                 }
                                 else
@@ -235,12 +247,12 @@ namespace Project1
                         }
                     case 4:
                         {
-                            if (Balance > 10000)
+                            if (account.Balance > 10000)
                             {
-                                Balance = Balance - 10000;
+                                account.Balance -= 10000;
                                 Console.WriteLine("Please wait while we process your request");
                                 Console.WriteLine("Please remove your card and get the cash");
-
+                                TranHis.Add(DateTime.Now + " Withdraw: " + 10000);
                                 Console.WriteLine("you want receipt fo your transaction");
                                 Console.WriteLine("1.Yes");
                                 Console.WriteLine("2.No");
@@ -248,7 +260,7 @@ namespace Project1
                                 if (Choice == 1)
                                 {
                                     Console.WriteLine("Please collect your receipt");
-                                    Console.WriteLine("Your balance is:" + Balance);
+                                    Console.WriteLine("Your balance is:" + account.Balance);
                                     Console.WriteLine("Thank You");
                                 }
                                 else
@@ -312,11 +324,12 @@ namespace Project1
             int num = GetInteger("Enter the number to select your choice");
             if (num == 1)
             {
-                if (Balance > Cash)
+                if (account.Balance > Cash)
                 {
-                    Balance = Balance - Cash;
+                    account.Balance -= Cash;
                     Console.WriteLine("Please wait while we process your request");
                     Console.WriteLine("Please remove your card and get your cash");
+                    TranHis.Add(DateTime.Now + " Withdraw: " + Cash);
                     Console.WriteLine("You want receipt for your transaction");
                     Console.WriteLine("1.Yes");
                     Console.WriteLine("2.No");
@@ -324,7 +337,7 @@ namespace Project1
                     if (choice == 1)
                     {
                         Console.WriteLine("Please collect your receipt");
-                        Console.WriteLine("Your balance is:" + Balance);
+                        Console.WriteLine("Your balance is:" + account.Balance);
                         Console.WriteLine("Thank You");
                     }
                     else
@@ -357,14 +370,12 @@ namespace Project1
 
         private void GetBalance()
         {
-            Console.WriteLine("Your Balance is:"+Balance);
+            Console.WriteLine("Your Balance is:"+account.Balance);
         }
 
-        private void PrintMiniStatement(AutomatedMachine atm)
+        private List<string> GetTransactionHistory()
         {
-            List<AutomatedMachine> atmlist = new List<AutomatedMachine>();
-            atmlist.Add(atm);
+            return TranHis;
         }
-
     }
 }
